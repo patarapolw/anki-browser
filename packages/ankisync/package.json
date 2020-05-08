@@ -1,0 +1,40 @@
+{
+  "name": "ankisync",
+  "version": "0.6.0",
+  "description": "Do in Anki what Anki cannot do",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "repository": "github:patarapolw/anki-browser",
+  "scripts": {
+    "prepack": "tsc -p src/tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "anki",
+    "ankisync"
+  ],
+  "author": {
+    "url": "https://polvcode.dev",
+    "name": "Pacharapol Withayasakpunt",
+    "email": "patarapolw@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.4.14",
+    "fs-extra": "^9.0.0",
+    "rimraf": "^3.0.2",
+    "sqlite": "^4.0.7",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.4.33",
+    "@types/fs-extra": "^8.1.0",
+    "@types/rimraf": "^3.0.0"
+  }
+}
