@@ -17,7 +17,7 @@ export class Anki2 {
       SELECT name FROM sqlite_master WHERE type='table'
     `)).map((t) => t.name as string)
 
-    if (!tables.includes('deck')) {
+    if (!tables.includes('decks')) {
       await db.exec(/*sql*/`
         CREATE TABLE IF NOT EXISTS decks (
           id      INTEGER PRIMARY KEY,

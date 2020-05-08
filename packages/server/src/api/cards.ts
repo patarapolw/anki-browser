@@ -72,14 +72,23 @@ export default (f: FastifyInstance, _: any, next: () => void) => {
     JOIN decks AS d ON c.did = d.id
     JOIN models AS m ON n.mid = m.id
     JOIN templates AS t ON t.ord = c.ord AND t.mid = n.mid
-    `, (el: any) => {
+    `, (err: any, el: any) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+
       const data: any = {}
+
       const ks = el.keys.split('\x1f') as string[]
       const vs = el.values.split('\x1f') as string[]
       ks.map((k, i) => {
         data[k] = vs[i]
       })
       el.data = data
+
+      el.keys = ks
+      el.values = vs
 
       if (qSearch.filterFunction(cond)(el)) {
         allData.push(el)

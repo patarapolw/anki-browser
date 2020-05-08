@@ -1,44 +1,42 @@
+import dotProp from 'dot-prop'
+
 export const sorter = (ords: {
   key: string
   type: 1 | -1
 }[], nullsLast?: boolean) => (a: any, b: any) => {
-  if (a && b) {
-    for (const { key, type } of ords) {
-      const m = a[key]
-      const n = b[key]
+  for (const { key, type } of ords) {
+    const m = dotProp.get<any>(a, key)
+    const n = dotProp.get<any>(b, key)
 
-      const tA = getType(m)
-      const tB = getType(n)
+    const tA = getType(m)
+    const tB = getType(n)
 
-      if (tA === tB) {
-        let r = m - n
+    if (tA === tB) {
+      let r = m - n
 
-        if (m && typeof m.localeCompare === 'function') {
-          r = m.localeCompare(n)
-        }
-
-        if (!r) {
-          continue
-        }
-
-        return r * type
-      } else {
-        if (nullsLast) {
-          if (isUndefinedOrNull(m)) {
-            return -1
-          } else if (isUndefinedOrNull(n)) {
-            return 1
-          }
-        }
-
-        return (tA - tB) * type
+      if (m && typeof m.localeCompare === 'function') {
+        r = m.localeCompare(n)
       }
-    }
 
-    return 0
+      if (!r) {
+        continue
+      }
+
+      return r * type
+    } else {
+      if (nullsLast) {
+        if (isUndefinedOrNull(m)) {
+          return -1
+        } else if (isUndefinedOrNull(n)) {
+          return 1
+        }
+      }
+
+      return (tA - tB) * type
+    }
   }
 
-  return a ? -1 : 1
+  return 0
 }
 
 function isUndefinedOrNull (a: any) {
